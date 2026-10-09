@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Un año a tu lado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wine:#2b1420; --wine-deep:#190b12; --rose:#5c2a3a;
+  --gold:#e8b54a; --gold-soft:#f6d98a;
+  --petal:#f0a93a; --petal-light:#ffd873; --petal-core:#7a4a1e;
+  --cream:#fff6e6; --cream-dim:#e9cfa0;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  font-family:'Jost', sans-serif;
+  background:var(--wine-deep);
+  color:var(--cream);
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  overflow-x:hidden;
+}
+@media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+section{ position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:60px 20px; overflow:hidden; }
+
+/* ---------- HERO ---------- */
+.hero{
+  background:radial-gradient(ellipse at 50% 20%, var(--rose) 0%, var(--wine) 45%, var(--wine-deep) 90%);
+}
+.stars{ position:absolute; inset:0; z-index:0; }
+.star{ position:absolute; width:2px; height:2px; background:var(--cream); border-radius:50%; opacity:.2; animation:tw 4s ease-in-out infinite; }
+@keyframes tw{ 0%,100%{opacity:.1;} 50%{opacity:.8;} }
+
+.petals{ position:absolute; inset:0; z-index:1; pointer-events:none; }
+.petal{ position:absolute; bottom:-8vh; opacity:0; animation-name:rise; animation-timing-function:ease-in-out; animation-iteration-count:infinite; }
+@keyframes rise{
+  0%{ transform:translate(0,0) rotate(0deg); opacity:0; }
+  10%{ opacity:1; }
+  50%{ transform:translate(var(--dx,20px), -55vh) rotate(var(--rot,15deg)); }
+  90%{ opacity:1; }
+  100%{ transform:translate(calc(var(--dx,20px)*1.7), -112vh) rotate(calc(var(--rot,15deg)*1.7)); opacity:0; }
+}
+
+.hero-inner{ position:relative; z-index:2; text-align:center; max-width:680px; }
+.eyebrow{ font-size:.85rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:22px; }
+h1.big{
+  font-family:'Playfair Display', serif; font-weight:700;
+  font-size:clamp(2.6rem,8vw,4.6rem); line-height:1.1; color:var(--cream);
+}
+h1.big em{ font-style:italic; color:var(--petal-light); }
+.sub{ margin-top:22px; font-family:'Cormorant Garamond', serif; font-style:italic; font-size:clamp(1.1rem,2.6vw,1.35rem); color:var(--cream-dim); }
+.scrolldown{ margin-top:48px; font-size:.75rem; letter-spacing:.2em; color:var(--cream-dim); opacity:.6; animation:bob 2.2s ease-in-out infinite; }
+@keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(8px);} }
+
+/* ---------- CARTA ---------- */
+.letter-section{ background:linear-gradient(180deg, var(--wine-deep) 0%, var(--wine) 100%); }
+.card{
+  position:relative; z-index:2; max-width:640px; background:rgba(255,246,230,0.06);
+  border:1px solid rgba(232,181,74,0.25); border-radius:22px; padding:52px 38px;
+  opacity:0; transform:translateY(40px); transition:opacity 1s ease, transform 1s ease;
+}
+.card.show{ opacity:1; transform:translateY(0); }
+.card h2{ font-family:'Playfair Display', serif; font-weight:600; font-size:clamp(1.7rem,4.5vw,2.3rem); color:var(--gold-soft); margin-bottom:24px; text-align:center;}
+.card p{ font-family:'Cormorant Garamond', serif; font-style:italic; font-size:clamp(1.05rem,2.3vw,1.28rem); line-height:1.85; color:var(--cream); margin-bottom:18px; }
+.card .sign{ text-align:right; color:var(--petal-light); font-size:1.1rem; margin-top:10px; }
+
+.corner-flower{ position:absolute; width:46px; height:46px; opacity:.55; }
+.corner-flower.tl{ top:14px; left:14px; }
+.corner-flower.br{ bottom:14px; right:14px; transform:rotate(180deg); }
+
+/* ---------- DISTANCIA ---------- */
+.distance-section{ background:radial-gradient(ellipse at 50% 50%, var(--rose) 0%, var(--wine-deep) 75%); flex-direction:column; text-align:center; }
+.dist-wrap{ position:relative; z-index:2; opacity:0; transform:translateY(30px); transition:opacity 1s ease, transform 1s ease; max-width:600px; }
+.dist-wrap.show{ opacity:1; transform:translateY(0); }
+.flags{ font-size:2.2rem; display:flex; align-items:center; justify-content:center; gap:18px; margin-bottom:18px; }
+.dotted-line{ width:120px; height:1px; border-top:2px dotted var(--gold); position:relative; }
+.dotted-line::after{ content:'🌼'; position:absolute; top:-12px; left:50%; transform:translateX(-50%); font-size:1rem; animation:driftFlower 3s ease-in-out infinite; }
+@keyframes driftFlower{ 0%,100%{ left:10%; } 50%{ left:85%; } }
+.dist-wrap p{ font-family:'Cormorant Garamond', serif; font-style:italic; font-size:clamp(1.15rem,2.8vw,1.5rem); color:var(--cream-dim); margin-top:10px; }
+
+/* ---------- CIERRE ---------- */
+.closing{ background:linear-gradient(180deg, var(--wine) 0%, var(--wine-deep) 100%); flex-direction:column; text-align:center; }
+.bouquet{ position:relative; width:220px; height:140px; margin-bottom:28px; opacity:0; transform:scale(.85); transition:opacity 1.1s ease, transform 1.1s ease; }
+.bouquet.show{ opacity:1; transform:scale(1); }
+.bouquet svg{ position:absolute; bottom:0; }
+.closing h2{ font-family:'Playfair Display', serif; font-weight:700; font-size:clamp(1.9rem,5vw,2.6rem); color:var(--cream); margin-bottom:14px;
+  opacity:0; transform:translateY(20px); transition:opacity 1s ease .2s, transform 1s ease .2s; }
+.closing h2.show{ opacity:1; transform:translateY(0); }
+.closing .names{ font-family:'Cormorant Garamond', serif; font-style:italic; font-size:1.4rem; color:var(--gold-soft); margin-top:10px;
+  opacity:0; transition:opacity 1.2s ease .5s; }
+.closing .names.show{ opacity:1; }
+.heartdiv{ margin:0 10px; color:var(--petal-light); }
+
+.hintfoot{ margin-top:50px; font-size:.75rem; color:var(--cream-dim); opacity:.45; letter-spacing:.05em;
+  opacity:0; transition:opacity 1.5s ease .8s; }
+.hintfoot.show{ opacity:.45; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="flor" viewBox="0 0 100 100">
+      <g fill="#f0a93a">
+        <ellipse cx="50" cy="28" rx="13" ry="22"/><ellipse cx="50" cy="28" rx="13" ry="22" transform="rotate(72 50 50)"/>
+        <ellipse cx="50" cy="28" rx="13" ry="22" transform="rotate(144 50 50)"/><ellipse cx="50" cy="28" rx="13" ry="22" transform="rotate(216 50 50)"/>
+        <ellipse cx="50" cy="28" rx="13" ry="22" transform="rotate(288 50 50)"/>
+      </g>
+      <g fill="#ffd873" opacity="0.85">
+        <ellipse cx="50" cy="32" rx="8" ry="15"/><ellipse cx="50" cy="32" rx="8" ry="15" transform="rotate(72 50 50)"/>
+        <ellipse cx="50" cy="32" rx="8" ry="15" transform="rotate(144 50 50)"/><ellipse cx="50" cy="32" rx="8" ry="15" transform="rotate(216 50 50)"/>
+        <ellipse cx="50" cy="32" rx="8" ry="15" transform="rotate(288 50 50)"/>
+      </g>
+      <circle cx="50" cy="50" r="10" fill="url(#core)"/>
+    </symbol>
+    <radialGradient id="core" cx="35%" cy="30%" r="75%"><stop offset="0%" stop-color="#fff3c4"/><stop offset="100%" stop-color="#7a4a1e"/></radialGradient>
+  </defs>
+</svg>
+
+<section class="hero">
+  <div class="stars" id="stars"></div>
+  <div class="petals" id="petals"></div>
+  <div class="hero-inner">
+    <p class="eyebrow">Feliz Aniversario</p>
+    <h1 class="big">Un año <em>a tu lado</em>,<br>mi Abigail.</h1>
+    <p class="sub">Un año amándote a pesar de la distancia.</p>
+    <p class="scrolldown">↓ desliza ↓</p>
+  </div>
+</section>
+
+<section class="letter-section">
+  <svg class="corner-flower tl" viewBox="0 0 100 100"><use href="#flor"/></svg>
+  <svg class="corner-flower br" viewBox="0 0 100 100"><use href="#flor"/></svg>
+  <div class="card" id="card1">
+    <h2>Mi amor,</h2>
+    <p>Hoy se cumple un año desde que decidimos amarnos sin importar los kilómetros
+      que nos separan. Un año de llamadas y mensajes por las noches y madrugadas,
+      de contar los días para cuándo podamos vernos, de aprender que el amor
+      también se construye a la distancia.</p>
+    <p>Gracias por tu paciencia, por tu confianza, por quedarte incluso cuando
+      todo parecía más difícil. Aquella flor amarilla que te mandé el día de la
+      primavera llevaba un pedazo de lo que siento por ti, mi Ruth Abi Olguin Añez,
+      y hoy ese sentimiento sigue intacto.</p>
+    <p>Llevo años conociéndote, y desde entonces no ha habido uno solo en el que
+      no ilumines mis días. Antes como una luz que admiraba desde lejos, y ahora
+      como la mujer que elijo amar cada día, sin importar cuántos kilómetros nos
+      separen.</p>
+    <p>Eres de esas personas que llegan y se quedan en el alma: en tu risa, en tu
+      forma de ver la vida, en la calma que me das incluso en la distancia. No
+      necesito que estés cerca para sentirte conmigo: te encuentro en canciones
+      que ya no puedo escuchar igual, en lugares a los que ya quiero llevarte
+      algún día, en cada pequeño detalle que, sin que te des cuenta, me recuerda
+      a ti.</p>
+    <p>Gracias por ser mi hogar aunque estemos lejos, mi calma en los días
+      difíciles y mi alegría en los días buenos. Que este sea apenas el primero
+      de muchos años más a tu lado.</p>
+    <p>Eres mi cielo en los días grises y mi sol en los fríos. Tienes todo lo
+      que este corazón necesita, y lo mejor de todo es que eres mía, toda mía.
+      Te amo, mi Abi.</p>
+    <p class="sign">— G. Paulo Deseno Miguel</p>
+  </div>
+</section>
+
+<section class="distance-section">
+  <div class="dist-wrap" id="dist">
+    <div class="flags">🇵🇪 <div class="dotted-line"></div> 🇧🇴</div>
+    <p>Perú y Bolivia nos separan en el mapa,<br>pero no en lo que sentimos.</p>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="bouquet" id="bouquet">
+    <svg viewBox="0 0 220 140" width="220" height="140">
+      <use href="#flor" x="10" y="20" width="70" height="70" transform="rotate(-12 45 55)"/>
+      <use href="#flor" x="75" y="0" width="80" height="80" />
+      <use href="#flor" x="140" y="25" width="68" height="68" transform="rotate(14 174 59)"/>
+      <use href="#flor" x="55" y="55" width="55" height="55" transform="rotate(5 82 82)"/>
+      <use href="#flor" x="125" y="60" width="52" height="52" transform="rotate(-8 151 86)"/>
+    </svg>
+  </div>
+  <h2 id="h2close">Gracias por un año hermoso.</h2>
+  <p class="names" id="names">Paulo <span class="heartdiv">❤</span> Abigail</p>
+  <p class="hintfoot" id="hintfoot">y que vengan muchos años más</p>
+</section>
+
+<script>
+  const starsEl = document.getElementById('stars');
+  for (let i=0;i<70;i++){
+    const s=document.createElement('div'); s.className='star';
+    s.style.left=Math.random()*100+'vw'; s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=(Math.random()*4)+'s'; s.style.animationDuration=(3+Math.random()*3)+'s';
+    starsEl.appendChild(s);
+  }
+
+  const petalsEl = document.getElementById('petals');
+  for (let i=0;i<16;i++){
+    const wrap=document.createElement('div'); wrap.className='petal';
+    const size=20+Math.random()*42;
+    wrap.style.width=size+'px'; wrap.style.height=size+'px';
+    wrap.style.left=Math.random()*96+'vw';
+    const dur=13+Math.random()*11;
+    wrap.style.animationDuration=dur+'s';
+    wrap.style.animationDelay=(-Math.random()*dur)+'s';
+    wrap.style.setProperty('--dx',(Math.random()*160-80)+'px');
+    wrap.style.setProperty('--rot',(Math.random()*50-25)+'deg');
+    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 100 100'); svg.innerHTML='<use href="#flor"/>';
+    wrap.appendChild(svg);
+    petalsEl.appendChild(wrap);
+  }
+
+  const revealEls = ['card1','dist','bouquet','h2close','names','hintfoot'].map(id=>document.getElementById(id));
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+  }, {threshold:0.3});
+  revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
